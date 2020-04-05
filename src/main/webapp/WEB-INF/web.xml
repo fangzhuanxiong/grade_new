@@ -1,0 +1,164 @@
+<web-app>
+  <servlet>
+    <servlet-name>authManageSaveSev</servlet-name>
+    <servlet-class>servlet.AuthManageSaveSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>authManageSaveSev</servlet-name>
+    <url-pattern>/authManageSave</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>authSearchSev</servlet-name>
+    <servlet-class>servlet.AuthSearchSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>authSearchSev</servlet-name>
+    <url-pattern>/authSearch</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>checkUseradminSev</servlet-name>
+    <servlet-class>servlet.CheckUseradminSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>checkUseradminSev</servlet-name>
+    <url-pattern>/checkUseradmin</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>checkUserstuSev</servlet-name>
+    <servlet-class>servlet.CheckUserstuSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>checkUserstuSev</servlet-name>
+    <url-pattern>/checkUserstu</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>courseManageSaveSev</servlet-name>
+    <servlet-class>servlet.CourseManageSaveSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>courseManageSaveSev</servlet-name>
+    <url-pattern>/courseManageSave</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>deleteAuthSev</servlet-name>
+    <servlet-class>servlet.DeleteAuthSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteAuthSev</servlet-name>
+    <url-pattern>/deleteAuth</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>deleteCourseSev</servlet-name>
+    <servlet-class>servlet.DeleteCourseSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteCourseSev</servlet-name>
+    <url-pattern>/deleteCourse</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>deleteGradeSev</servlet-name>
+    <servlet-class>servlet.DeleteGradeSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteGradeSev</servlet-name>
+    <url-pattern>/deleteGrade</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getAllCourseSev</servlet-name>
+    <servlet-class>servlet.GetAllCourseSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getAllCourseSev</servlet-name>
+    <url-pattern>/getAllCourse</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getClassOptionsSev</servlet-name>
+    <servlet-class>servlet.GetClassOptionsSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getClassOptionsSev</servlet-name>
+    <url-pattern>/getClassOptions</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getDepartOptionsSev</servlet-name>
+    <servlet-class>servlet.GetDepartOptionsSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getDepartOptionsSev</servlet-name>
+    <url-pattern>/getDepartOptions</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getMajorOptionsSev</servlet-name>
+    <servlet-class>servlet.GetMajorOptionsSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getMajorOptionsSev</servlet-name>
+    <url-pattern>/getMajorOptions</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getSeasonOptionsSev</servlet-name>
+    <servlet-class>servlet.GetSeasonOptionsSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getSeasonOptionsSev</servlet-name>
+    <url-pattern>/getSeasonOptions</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>gradeManageSaveSev</servlet-name>
+    <servlet-class>servlet.GradeManageSaveSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gradeManageSaveSev</servlet-name>
+    <url-pattern>/gradeManageSave</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>gradeManageSearchSev</servlet-name>
+    <servlet-class>servlet.GradeManageSearchSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gradeManageSearchSev</servlet-name>
+    <url-pattern>/gradeManageSearch</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>gradeSearchSev</servlet-name>
+    <servlet-class>servlet.GradeSearchSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gradeSearchSev</servlet-name>
+    <url-pattern>/gradeSearch</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>gradeStatisticSearchSev</servlet-name>
+    <servlet-class>servlet.GradeStatisticSearchSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>gradeStatisticSearchSev</servlet-name>
+    <url-pattern>/gradeStatisticSearch</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>resetPwdSev</servlet-name>
+    <servlet-class>servlet.ResetPwdSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>resetPwdSev</servlet-name>
+    <url-pattern>/resetPwd</url-pattern>
+  </servlet-mapping>
+
+</web-app>
