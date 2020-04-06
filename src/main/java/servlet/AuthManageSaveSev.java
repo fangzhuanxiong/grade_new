@@ -21,8 +21,11 @@ public class AuthManageSaveSev extends HttpServlet {
         DB db=new DB();
         //HttpSession session=request.getSession();
         String name=request.getParameter("name");
-        String auth=request.getParameter("auth");
-        db.authManageSave(name,auth,false);
+        String auth1=request.getParameter("updateGradeAuth");
+        String auth2=request.getParameter("changeOrDelGradeAuth");
+        String auth3=request.getParameter("courseManageAuth");
+        String auth4=request.getParameter("adminManageAuth");
+        db.authManageSave(name,auth1,auth2,auth3,auth4,false);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -161,4 +161,21 @@
     <url-pattern>/resetPwd</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>loginSev</servlet-name>
+    <servlet-class>servlet.LoginSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginSev</servlet-name>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>getAuthSev</servlet-name>
+    <servlet-class>servlet.GetAuthSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getAuthSev</servlet-name>
+    <url-pattern>/getAuth</url-pattern>
+  </servlet-mapping>
 </web-app>

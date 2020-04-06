@@ -62,6 +62,40 @@ public class DB {
         }
         return array;
     }
+    public JSONArray resultSetToJson4(ResultSet rs) throws SQLException, JSONException
+    {
+        ResultSetMetaData md = rs.getMetaData();// 获取表结构
+        int num = md.getColumnCount();// 得到行的总数
+        JSONArray array = new JSONArray();// json数组，根据下标找值；[{name1:wp},{name2:{name3:'ww'}}]name为key值，wp为value值
+        // JSONArray array=JSONArray.fromObject(String);将String转换为JSONArray格式
+        while (rs.next()) {// 如果结果集中有值
+            JSONObject mapOfColValues = new JSONObject(new LinkedHashMap<>());// 创建json对象就是一个{name:wp}
+            for (int i = 1; i <= num; i++) {
+                mapOfColValues.put(md.getColumnName(i), rs.getObject(i));// 添加键值对，比如说{name:Wp}通过name找到wp
+                mapOfColValues.put("usertype", 1);
+                System.out.println(mapOfColValues.toString());
+            }
+            array.put(mapOfColValues);
+        }
+        return array;
+    }
+    public JSONArray resultSetToJson5(ResultSet rs) throws SQLException, JSONException
+    {
+        ResultSetMetaData md = rs.getMetaData();// 获取表结构
+        int num = md.getColumnCount();// 得到行的总数
+        JSONArray array = new JSONArray();// json数组，根据下标找值；[{name1:wp},{name2:{name3:'ww'}}]name为key值，wp为value值
+        // JSONArray array=JSONArray.fromObject(String);将String转换为JSONArray格式
+        while (rs.next()) {// 如果结果集中有值
+            JSONObject mapOfColValues = new JSONObject(new LinkedHashMap<>());// 创建json对象就是一个{name:wp}
+            for (int i = 1; i <= num; i++) {
+                mapOfColValues.put(md.getColumnName(i), rs.getObject(i));// 添加键值对，比如说{name:Wp}通过name找到wp
+                mapOfColValues.put("usertype", 2);
+                System.out.println(mapOfColValues.toString());
+            }
+            array.put(mapOfColValues);
+        }
+        return array;
+    }
     public JSONArray resultSetToJson(ResultSet rs) throws SQLException, JSONException
     {
         ResultSetMetaData md = rs.getMetaData();// 获取表结构
@@ -79,6 +113,29 @@ public class DB {
         return array;
     }
 
+    public JSONArray login(String username,String password){    //sevdone
+        try{
+            pstmt=ct.prepareStatement("select * from stulist where sid=? and spwd=?");
+            pstmt.setString(1,username);
+            pstmt.setString(2,password);
+            ResultSet rs1=pstmt.executeQuery();
+            while(rs1.next()){
+                JSONArray al1=new JSONArray();
+                al1=resultSetToJson4(rs1);
+                return al1;
+            }
+            pstmt=ct.prepareStatement("select * from adminlist where aname=? and apwd=?");
+            pstmt.setString(1,username);
+            pstmt.setString(2,password);
+            ResultSet rs2=pstmt.executeQuery();
+            JSONArray al2=new JSONArray();
+            al2=resultSetToJson5(rs2);
+            return al2;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
     public JSONArray checkUserstu(String sid,String spwd){    //sevdone
         try{
             pstmt=ct.prepareStatement("select * from stulist where sid=? and spwd=?");
@@ -174,7 +231,7 @@ public class DB {
     }
     public JSONArray authSearch(){  //sevdone
         try{
-            pstmt=ct.prepareStatement("select aname,auth from AdminList");
+            pstmt=ct.prepareStatement("select aname,updateGradeAuth,changeOrDelGradeAuth,courseManageAuth,adminManageAuth from AdminList");
             JSONArray al=new JSONArray();
             ResultSet rs=pstmt.executeQuery();
             al=resultSetToJson3(rs);
@@ -184,7 +241,7 @@ public class DB {
             return null;
         }
     }
-    public boolean deleteAuth(String name,String auth,boolean flag){    //sevdone
+    public boolean deleteAuth(String name,boolean flag){    //sevdone
         try{
             pstmt=ct.prepareStatement("delete from AdminList where aname=?");
             pstmt.setString(1,name);
@@ -195,16 +252,48 @@ public class DB {
             return false;
         }
     }
-    public boolean authManageSave(String name,String auth,boolean flag){    //sevdone
+
+    public boolean authManageSave(String name,String updateGradeAuth,String changeOrDelGradeAuth,String courseManageAuth,String adminManageAuth,boolean flag){    //sevdone
         try{
-            pstmt=ct.prepareStatement("insert into AdminList(aname,auth) values(?,?)");
+            pstmt=ct.prepareStatement("select * from adminlist where aname=?");
             pstmt.setString(1,name);
-            pstmt.setString(2,auth);
-            pstmt.executeUpdate();
-            return true;
+            ResultSet rs1= pstmt.executeQuery();
+            if(rs1.next()){
+                pstmt=ct.prepareStatement("update adminlist set updateGradeAuth=?,changeOrDelGradeAuth=?,courseManageAuth=?,adminManageAuth=? where aname=?");
+                pstmt.setString(1,updateGradeAuth);
+                pstmt.setString(2,changeOrDelGradeAuth);
+                pstmt.setString(3,courseManageAuth);
+                pstmt.setString(4,adminManageAuth);
+                pstmt.setString(5,name);
+                pstmt.executeUpdate();
+                return true;
+            }
+            else{
+                pstmt=ct.prepareStatement("insert into adminlist(aname,apwd,updateGradeAuth,changeOrDelGradeAuth,courseManageAuth,adminManageAuth) values(?,123456,?,?,?,?)");
+                pstmt.setString(1,name);
+                pstmt.setString(2,updateGradeAuth);
+                pstmt.setString(3,changeOrDelGradeAuth);
+                pstmt.setString(4,courseManageAuth);
+                pstmt.setString(5,adminManageAuth);
+                pstmt.executeUpdate();
+                return true;
+            }
         }catch(Exception e){
             e.printStackTrace();
             return false;
+        }
+    }
+    public JSONArray getAuth(String username){
+        try{
+            pstmt=ct.prepareStatement("select updateGradeAuth,changeOrDelGradeAuth,courseManageAuth,adminManageAuth from adminlist where aname=? ");
+            pstmt.setString(1,username);
+            JSONArray al=new JSONArray();
+            ResultSet rs=pstmt.executeQuery();
+            al=resultSetToJson(rs);
+            return al;
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
         }
     }
     public JSONArray gradeManageSearch(String season,String major,String classid,String depart){

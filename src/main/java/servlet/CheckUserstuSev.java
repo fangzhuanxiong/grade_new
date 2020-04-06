@@ -20,8 +20,8 @@ public class CheckUserstuSev extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         DB db=new DB();
-        String sid=request.getParameter("sid");
-        String spwd=request.getParameter("spwd");
+        String sid=request.getParameter("username");
+        String spwd=request.getParameter("password");
        // HttpSession session=request.getSession();
         JSONArray al=new JSONArray();
         al=db.checkUserstu(sid,spwd);
