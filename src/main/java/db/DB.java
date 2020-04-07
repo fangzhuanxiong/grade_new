@@ -119,21 +119,22 @@ public class DB {
             pstmt.setString(1,username);
             pstmt.setString(2,password);
             ResultSet rs1=pstmt.executeQuery();
-            if(rs1.next()){
-                JSONArray al1=new JSONArray();
-                al1=resultSetToJson4(rs1);
-                return al1;
-            }
-            else{
-                pstmt=ct.prepareStatement("select * from adminlist where aname=? and apwd=?");
+            while(rs1.next()){
+                pstmt=ct.prepareStatement("select * from stulist where sid=? and spwd=?");
                 pstmt.setString(1,username);
                 pstmt.setString(2,password);
-                ResultSet rs2=pstmt.executeQuery();
-                JSONArray al2=new JSONArray();
-                al2=resultSetToJson5(rs2);
-                return al2;
+                ResultSet rs3=pstmt.executeQuery();
+                JSONArray al1=new JSONArray();
+                al1=resultSetToJson4(rs3);
+                return al1;
             }
-
+            pstmt=ct.prepareStatement("select * from adminlist where aname=? and apwd=?");
+            pstmt.setString(1,username);
+            pstmt.setString(2,password);
+            ResultSet rs2=pstmt.executeQuery();
+            JSONArray al2=new JSONArray();
+            al2=resultSetToJson5(rs2);
+            return al2;
         }catch(Exception e){
             e.printStackTrace();
             return null;
