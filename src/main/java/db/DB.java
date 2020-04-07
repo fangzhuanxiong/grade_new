@@ -422,28 +422,19 @@ public class DB {
         try{
             pstmt=ct.prepareStatement("select sid from stulist where sid=?");
             pstmt.setString(1,userId);
-            ResultSet rs1=pstmt.executeQuery();
-            if(rs1.next()){
+            ResultSet rs=pstmt.executeQuery();
+            if(rs.next()){
                 pstmt=ct.prepareStatement("update stulist set spwd=? where sid=?");
                 pstmt.setString(1,newPwd);
                 pstmt.setString(2,userId);
                 pstmt.executeUpdate();
                 return true;
             }
-            else{
-                pstmt=ct.prepareStatement("select aname from adminlist where aname=?");
-                pstmt.setString(1,userId);
-                ResultSet rs2=pstmt.executeQuery();
-                if(rs2.next()){
-                    pstmt=ct.prepareStatement("update adminlist set apwd=? where aname=?");
-                    pstmt.setString(1,newPwd);
-                    pstmt.setString(2,userId);
-                    pstmt.executeUpdate();
-                    return true;
-                }
-            }
-
-            return false;
+            pstmt=ct.prepareStatement("update adminlist set apwd=? where aname=?");
+            pstmt.setString(1,newPwd);
+            pstmt.setString(2,userId);
+            pstmt.executeUpdate();
+            return true;
         }catch(Exception e){
             e.printStackTrace();
             return false;
