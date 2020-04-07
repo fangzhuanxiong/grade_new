@@ -27,7 +27,8 @@ public class GradeManageSaveSev extends HttpServlet {
         String course=request.getParameter("course");
         String season=request.getParameter("season");
         String grade=request.getParameter("grade");
-        db.gradeManageSave(sid,sname,depart,major,classid,course,season,grade,false,false);
+        String level=request.getParameter("level");
+        db.gradeManageSave(sid,sname,depart,major,classid,course,season,grade,level,false,false);
     }
 
 
