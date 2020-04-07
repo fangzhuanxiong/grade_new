@@ -3,11 +3,16 @@ import com.mysql.cj.xdevapi.JsonArray;
 import com.mysql.cj.xdevapi.JsonValue;
 import model.*;
 import org.json.*;
+
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.TimeZone;
+import jxl.Sheet;
+import jxl.Workbook;
+
 
 public class DB {
     private static final Object UTC= TimeZone.getTimeZone("UTC");
@@ -436,6 +441,34 @@ public class DB {
             pstmt.executeUpdate();
             return true;
         }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean addFromExcel(){
+        try {
+            Workbook rwb=Workbook.getWorkbook(new File("F:\\gradeadd.xls"));
+            Sheet rs=rwb.getSheet(0);//表
+            int clos=rs.getColumns();//得到所有的列
+            int rows=rs.getRows();//得到所有的行
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < clos; j++) {
+                    String sid=rs.getCell(j++, i).getContents();//默认最左边编号也算一列 所以这里得j++
+                    String course=rs.getCell(j++, i).getContents();
+                    String season=rs.getCell(j++, i).getContents();
+                    String grade=rs.getCell(j++, i).getContents();
+                    String level=rs.getCell(j++, i).getContents();
+                    pstmt=ct.prepareStatement("insert into gradelist(sid, course, season, grade, level) values (?,?,?,?,?)");
+                    pstmt.setString(1,sid);
+                    pstmt.setString(2,course);
+                    pstmt.setString(3,season);
+                    pstmt.setString(4,grade);
+                    pstmt.setString(5,level);
+                    pstmt.executeUpdate();
+                }
+            }
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
