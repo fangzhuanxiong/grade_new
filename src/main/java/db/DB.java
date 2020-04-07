@@ -180,7 +180,7 @@ public class DB {
     }
     public JSONArray gradeStatisticSearch(String season,String major,String classid,String depart,String course){
         try{    //sevdone
-            pstmt=ct.prepareStatement("select sum(case when grade<60 then 1 else 0 end) as '0-59',sum(case when grade between 60 and 69 then 1 else 0 end) as '60-79',sum(case when grade between 70 and 79 then 1 else 0 end) as '70-79',sum(case when grade between 80 and 89 then 1 else 0 end) as '80-89',sum(case when grade between 90 and 100 then 1 else 0 end) as '90-100' from GradeList,StuList where season=? and major=? and classid=? and depart=? and course=?");
+            pstmt=ct.prepareStatement("select sum(case when grade<60 then 1 else 0 end) as '0-59',sum(case when grade between 60 and 69 then 1 else 0 end) as '60-79',sum(case when grade between 70 and 79 then 1 else 0 end) as '70-79',sum(case when grade between 80 and 89 then 1 else 0 end) as '80-89',sum(case when grade between 90 and 100 then 1 else 0 end) as '90-100',avg(grade) as avgGrade,max(grade) as maxGrade from GradeList,StuList where season=? and major=? and classid=? and depart=? and course=?");
             pstmt.setString(1,season);
             pstmt.setString(2,major);
             pstmt.setString(3,classid);
@@ -189,6 +189,7 @@ public class DB {
             JSONArray al=new JSONArray();
             ResultSet rs=pstmt.executeQuery();
             al=resultSetToJson(rs);
+
             return al;
         }catch(Exception e){
             e.printStackTrace();
@@ -298,7 +299,7 @@ public class DB {
     }
     public JSONArray gradeManageSearch(String season,String major,String classid,String depart){
         try{    //sevdone
-            pstmt=ct.prepareStatement("select StuList.sid,StuList.sname,StuList.depart,StuList.major,StuList.classid,GradeList.course,GradeList.season,GradeList.grade from StuList,GradeList where StuList.sid=GradeList.sid and GradeList.season=? and StuList.major=? and StuList.classid=? and StuList.depart=?");
+            pstmt=ct.prepareStatement("select StuList.sid,StuList.sname,StuList.depart,StuList.major,StuList.classid,GradeList.course,GradeList.season,GradeList.grade,GradeList.level from StuList,GradeList where StuList.sid=GradeList.sid and GradeList.season=? and StuList.major=? and StuList.classid=? and StuList.depart=?");
             pstmt.setString(1,season);
             pstmt.setString(2,major);
             pstmt.setString(3,classid);
@@ -312,14 +313,36 @@ public class DB {
             return null;
         }
     }
-    public boolean gradeManageSave(String sid,String sname,String depart,String major,String classid,String course,String season,String grade,boolean flag1,boolean flag2){
+    public boolean gradeManageSave(String sid,String sname,String depart,String major,String classid,String course,String season,String grade,String level,boolean flag1,boolean flag2){
         try{    //sevdone
-            pstmt=ct.prepareStatement("update GradeList set grade=? where sid=? and course=? and season=?");
-            pstmt.setString(1,grade);
-            pstmt.setString(2,sid);
-            pstmt.setString(3,course);
-            pstmt.setString(4,season);
-            pstmt.executeUpdate();
+            pstmt=ct.prepareStatement("select sid from stulist where sid=?");
+            pstmt.setString(1,sid);
+            ResultSet rs1=pstmt.executeQuery();
+            if(rs1.next()==false){
+                return false;
+            }
+            pstmt=ct.prepareStatement("select sid,course,season,grade from gradelist where sid=? and course=? and season=? and course=?");
+            pstmt.setString(1,sid);
+            pstmt.setString(2,course);
+            pstmt.setString(3,season);
+            pstmt.setString(4,grade);
+            ResultSet rs2=pstmt.executeQuery();
+            if(rs2.next()){
+                pstmt=ct.prepareStatement("update gradelist set grade=?,level=? where sid=? and course=? and season=? and grade=?");
+                pstmt.setString(1,grade);
+                pstmt.setString(2,level);
+                pstmt.setString(3,sid);
+                pstmt.setString(4,course);
+                pstmt.setString(5,season);
+            }
+            else{
+                pstmt=ct.prepareStatement("insert into gradelist(sid, course, season, grade, level) values (?,?,?,?,?)");
+                pstmt.setString(1,sid);
+                pstmt.setString(2,course);
+                pstmt.setString(3,season);
+                pstmt.setString(4,grade);
+                pstmt.setString(5,level);
+            }
             return true;
         }catch(Exception e){
             e.printStackTrace();
