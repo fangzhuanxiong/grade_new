@@ -180,7 +180,7 @@ public class DB {
     }
     public JSONArray gradeStatisticSearch(String season,String major,String classid,String depart,String course){
         try{    //sevdone
-            pstmt=ct.prepareStatement("select sum(case when grade<60 then 1 else 0 end) as '0-59',sum(case when grade between 60 and 69 then 1 else 0 end) as '60-79',sum(case when grade between 70 and 79 then 1 else 0 end) as '70-79',sum(case when grade between 80 and 89 then 1 else 0 end) as '80-89',sum(case when grade between 90 and 100 then 1 else 0 end) as '90-100' from GradeList,StuList where season=? and major=? and classid=? and depart=? and course=?");
+            pstmt=ct.prepareStatement("select sum(case when grade<60 then 1 else 0 end) as '0-59',sum(case when grade between 60 and 69 then 1 else 0 end) as '60-79',sum(case when grade between 70 and 79 then 1 else 0 end) as '70-79',sum(case when grade between 80 and 89 then 1 else 0 end) as '80-89',sum(case when grade between 90 and 100 then 1 else 0 end) as '90-100',avg(grade) as avgGrade,max(grade) as maxGrade from GradeList,StuList where season=? and major=? and classid=? and depart=? and course=?");
             pstmt.setString(1,season);
             pstmt.setString(2,major);
             pstmt.setString(3,classid);
@@ -189,6 +189,7 @@ public class DB {
             JSONArray al=new JSONArray();
             ResultSet rs=pstmt.executeQuery();
             al=resultSetToJson(rs);
+
             return al;
         }catch(Exception e){
             e.printStackTrace();
