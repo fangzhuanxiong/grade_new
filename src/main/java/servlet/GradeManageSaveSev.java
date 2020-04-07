@@ -19,8 +19,8 @@ public class GradeManageSaveSev extends HttpServlet {
         response.setContentType("application/json");
         DB db=new DB();
         //HttpSession session=request.getSession();
-        String sid=request.getParameter("sId");
-        String sname=request.getParameter("sName");
+        String sid=request.getParameter("sid");
+        String sname=request.getParameter("sname");
         String depart=request.getParameter("depart");
         String major=request.getParameter("major");
         String classid=request.getParameter("classid");
