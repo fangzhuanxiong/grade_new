@@ -298,7 +298,7 @@ public class DB {
     }
     public JSONArray gradeManageSearch(String season,String major,String classid,String depart){
         try{    //sevdone
-            pstmt=ct.prepareStatement("select sid,sname,depart,major,classid,course,season,grade from StuList,GradeList where season=? and major=? and classid=? and depart=?");
+            pstmt=ct.prepareStatement("select StuList.sid,StuList.sname,StuList.depart,StuList.major,StuList.classid,GradeList.course,GradeList.season,GradeList.grade from StuList,GradeList where StuList.sid=GradeList.sid and GradeList.season=? and StuList.major=? and StuList.classid=? and StuList.depart=?");
             pstmt.setString(1,season);
             pstmt.setString(2,major);
             pstmt.setString(3,classid);
