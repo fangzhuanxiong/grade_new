@@ -420,11 +420,30 @@ public class DB {
     }
     public boolean resetPwd(String userId,String newPwd){   //sevdone
         try{
-            pstmt=ct.prepareStatement("update stulist set spwd=? where sid=? ");
-            pstmt.setString(1,newPwd);
-            pstmt.setString(2,userId);
-            pstmt.executeUpdate();
-            return true;
+            pstmt=ct.prepareStatement("select sid from stulist where sid=?");
+            pstmt.setString(1,userId);
+            ResultSet rs1=pstmt.executeQuery();
+            if(rs1.next()){
+                pstmt=ct.prepareStatement("update stulist set spwd=? where sid=?");
+                pstmt.setString(1,newPwd);
+                pstmt.setString(2,userId);
+                pstmt.executeUpdate();
+                return true;
+            }
+            else{
+                pstmt=ct.prepareStatement("select aname from adminlist where aname=?");
+                pstmt.setString(1,userId);
+                ResultSet rs2=pstmt.executeQuery();
+                if(rs2.next()){
+                    pstmt=ct.prepareStatement("update adminlist set apwd=? where aname=?");
+                    pstmt.setString(1,newPwd);
+                    pstmt.setString(2,userId);
+                    pstmt.executeUpdate();
+                    return true;
+                }
+            }
+
+            return false;
         }catch(Exception e){
             e.printStackTrace();
             return false;
