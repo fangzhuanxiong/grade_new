@@ -189,7 +189,7 @@ public class DB {
     }
     public JSONArray gradeStatisticSearch(String season,String major,String classid,String depart,String course){
         try{    //sevdone
-            pstmt=ct.prepareStatement("select count(case when grade<60 then 1 else 0 end) as 'to59',count(case when grade between 60 and 69 then 1 else 0 end) as 'to69',count(case when grade between 70 and 79 then 1 else 0 end) as 'to79',count(case when grade between 80 and 89 then 1 else 0 end) as 'to89',count(case when grade between 90 and 100 then 1 else 0 end) as 'to100',avg(grade) as avgGrade,max(grade) as maxGrade from GradeList,StuList where season=? and major=? and classid=? and depart=? and course=?");
+            pstmt=ct.prepareStatement("select count(case when grade<60 then 1 else 0 end) as 'to59',count(case when grade between 60 and 69 then 1 else 0 end) as 'to69',count(case when grade between 70 and 79 then 1 else 0 end) as 'to79',count(case when grade between 80 and 89 then 1 else 0 end) as 'to89',count(case when grade between 90 and 100 then 1 else 0 end) as 'to100',avg(grade) as avgGrade,max(grade) as maxGrade from GradeList,StuList where stulist.sid=gradelist.sid and season=? and major=? and classid=? and depart=? and course=?");
             pstmt.setString(1,season);
             pstmt.setString(2,major);
             pstmt.setString(3,classid);
