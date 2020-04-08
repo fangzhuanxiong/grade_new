@@ -324,25 +324,19 @@ public class DB {
     }
     public boolean gradeManageSave(String sid,String sname,String depart,String major,String classid,String course,String season,String grade,String level,boolean flag1,boolean flag2){
         try{    //sevdone
-            pstmt=ct.prepareStatement("select sid from stulist where sid=?");
-            pstmt.setString(1,sid);
-            ResultSet rs1=pstmt.executeQuery();
-            if(rs1.next()==false){
-                return false;
-            }
-            pstmt=ct.prepareStatement("select sid,course,season,grade from gradelist where sid=? and course=? and season=? and course=?");
+            pstmt=ct.prepareStatement("select * from gradelist where sid=? and course=? and season=?");
             pstmt.setString(1,sid);
             pstmt.setString(2,course);
             pstmt.setString(3,season);
-            pstmt.setString(4,grade);
-            ResultSet rs2=pstmt.executeQuery();
-            if(rs2.next()){
-                pstmt=ct.prepareStatement("update gradelist set grade=?,level=? where sid=? and course=? and season=? and grade=?");
+            ResultSet rs=pstmt.executeQuery();
+            if(rs.next()){
+                pstmt=ct.prepareStatement("update gradelist set grade=?,level=? where sid=? and course=? and season=? ");
                 pstmt.setString(1,grade);
                 pstmt.setString(2,level);
                 pstmt.setString(3,sid);
                 pstmt.setString(4,course);
                 pstmt.setString(5,season);
+                pstmt.executeUpdate();
             }
             else{
                 pstmt=ct.prepareStatement("insert into gradelist(sid, course, season, grade, level) values (?,?,?,?,?)");
@@ -351,8 +345,9 @@ public class DB {
                 pstmt.setString(3,season);
                 pstmt.setString(4,grade);
                 pstmt.setString(5,level);
+                pstmt.executeUpdate();
             }
-            pstmt.executeUpdate();
+
             return true;
         }catch(Exception e){
             e.printStackTrace();
