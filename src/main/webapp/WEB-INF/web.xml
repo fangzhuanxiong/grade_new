@@ -178,4 +178,13 @@
     <servlet-name>getAuthSev</servlet-name>
     <url-pattern>/getAuth</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>addFromExcelSev</servlet-name>
+    <servlet-class>servlet.AddFromExcelSev</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addFromExcelSev</servlet-name>
+    <url-pattern>/addFromExcel</url-pattern>
+  </servlet-mapping>
 </web-app>
