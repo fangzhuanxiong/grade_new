@@ -352,6 +352,7 @@ public class DB {
                 pstmt.setString(4,grade);
                 pstmt.setString(5,level);
             }
+            pstmt.executeUpdate();
             return true;
         }catch(Exception e){
             e.printStackTrace();
