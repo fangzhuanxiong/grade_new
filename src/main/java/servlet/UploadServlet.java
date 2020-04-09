@@ -92,10 +92,8 @@ public class UploadServlet extends HttpServlet {
                         // 在控制台输出文件的上传路径
                         System.out.println(filePath);
                         // 保存文件到硬盘
-
-                        db.addFromExcel(filePath);
-
                         item.write(storeFile);
+                        db.addFromExcel(filePath);
                         request.setAttribute("message",
                                 "文件上传成功!");
                     }

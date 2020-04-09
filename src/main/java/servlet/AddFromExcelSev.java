@@ -17,8 +17,9 @@ public class AddFromExcelSev extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
+        String filepath=request.getParameter("filepath");
         DB db=new DB();
-        db.addFromExcel();
+        db.addFromExcel(filepath);
     }
 
 
