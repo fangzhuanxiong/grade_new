@@ -446,7 +446,7 @@ public class DB {
             Sheet rs=rwb.getSheet(0);//表
             int clos=rs.getColumns();//得到所有的列
             int rows=rs.getRows();//得到所有的行
-            for (int i = 0; i < rows; i++) {
+            for (int i = 1; i < rows; i++) {
                 for (int j = 0; j < clos; j++) {
                     String sid=rs.getCell(j++, i).getContents();//默认最左边编号也算一列 所以这里得j++
                     String course=rs.getCell(j++, i).getContents();
