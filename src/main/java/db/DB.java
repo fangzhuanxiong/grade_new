@@ -447,8 +447,12 @@ public class DB {
             int clos=rs.getColumns();//得到所有的列
             int rows=rs.getRows();//得到所有的行
             for (int i = 1; i < rows; i++) {
-                for (int j = 0; j < clos; j++) {
-                    String sid=rs.getCell(j++, i).getContents();//默认最左边编号也算一列 所以这里得j++
+                for (int j = 0; j < clos; j++) {//默认最左边编号也算一列 所以这里得j++
+                    String sid=rs.getCell(j++, i).getContents();
+                    String sname=rs.getCell(j++, i).getContents();
+                    String depart=rs.getCell(j++, i).getContents();
+                    String major=rs.getCell(j++, i).getContents();
+                    String classid=rs.getCell(j++, i).getContents();
                     String course=rs.getCell(j++, i).getContents();
                     String season=rs.getCell(j++, i).getContents();
                     String grade=rs.getCell(j++, i).getContents();
