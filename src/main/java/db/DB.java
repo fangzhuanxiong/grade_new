@@ -440,9 +440,9 @@ public class DB {
             return false;
         }
     }
-    public boolean addFromExcel(){
+    public boolean addFromExcel(String filepath){
         try {
-            Workbook rwb=Workbook.getWorkbook(new File("F:\\gradeadd.xls"));
+            Workbook rwb=Workbook.getWorkbook(new File(filepath));
             Sheet rs=rwb.getSheet(0);//表
             int clos=rs.getColumns();//得到所有的列
             int rows=rs.getRows();//得到所有的行
